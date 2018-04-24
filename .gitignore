@@ -1,0 +1,5 @@
+# database config
+Application/Common/Conf/config.php
+
+# Editor directories and files
+.idea
