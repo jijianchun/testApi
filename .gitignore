@@ -1,5 +1,6 @@
 # database config
 Application/Common/Conf/config.php
+Application/Runtime
 
 # Editor directories and files
 .idea
