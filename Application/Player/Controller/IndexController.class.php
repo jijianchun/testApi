@@ -1,5 +1,5 @@
 <?php
-namespace Api\Controller;
+namespace Player\Controller;
 header('Access-Control-Allow-Origin:*');
 header("Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS, DELETE");
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
