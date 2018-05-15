@@ -1,2 +1,4 @@
-# testApi
-project test api
+# mockApi
+为自己的前端项目提供数据接口
+## 目前已包含：
+### 培训'项目开发分析详解'时用到的player
