@@ -3,6 +3,9 @@ namespace Player\Controller;
 header('Access-Control-Allow-Origin:*');
 header("Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS, DELETE");
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
+if (strtolower($_SERVER['REQUEST_METHOD']) == 'options') {
+ 	exit;
+}
 
 use Think\Controller;
 
@@ -34,21 +37,21 @@ class IndexController extends Controller
 	}
 
 	// 查询
-    public function query(){
-    	if($_GET['name']) {
-    		$where['name'] = array('like', '%'.$_GET['name'].'%');
-    	}
-    	if($_GET['location']) {
-    		$where['location'] = array('like', '%'.$_GET['location'].'%');
-    	}
-    	if($_GET['city']) {
-    		$where['city'] = array('like', '%'.$_GET['city'].'%');
-    	}
+  public function query(){
+  	if($_GET['name']) {
+  		$where['name'] = array('like', '%'.$_GET['name'].'%');
+  	}
+  	if($_GET['location']) {
+  		$where['location'] = array('like', '%'.$_GET['location'].'%');
+  	}
+  	if($_GET['city']) {
+  		$where['city'] = array('like', '%'.$_GET['city'].'%');
+  	}
 
-    	// 分页参数
-    	$pageSize = $_GET['pageSize'];
-    	$pageNo = intVal($_GET['pageNo']) - 1;
-    	$start = $pageSize * $pageNo;
+  	// 分页参数
+  	$pageSize = $_GET['pageSize'];
+  	$pageNo = intVal($_GET['pageNo']) - 1;
+  	$start = $pageSize * $pageNo;
 
 		$data = $this->player_model->where($where)->limit($start,$pageSize)->select();
 		$count = $this->player_model->where($where)->limit($start,$pageSize)->count();
