@@ -15,4 +15,9 @@ class IndexController extends Controller
     {
         echo 'homepage';
     }
+
+    // 提交留言
+    public funtion addComment () {
+
+    }
 }
