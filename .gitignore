@@ -2,6 +2,9 @@
 Application/Common/Conf/config.php
 Application/Player/Conf/config.php
 
+# uploads
+Public/Uploads
+
 Application/Runtime
 
 # Editor directories and files
