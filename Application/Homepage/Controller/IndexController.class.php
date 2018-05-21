@@ -37,17 +37,13 @@ class IndexController extends Controller
     // 添加作品
     public function addWork () {
       if (IS_POST) {
-  			// $req_data = json_decode($GLOBALS['HTTP_RAW_POST_DATA'],true);
-  			// $data['name'] = $req_data['name'];
-  			// $data['email'] = $req_data['email'];
-  			// $data['content'] = $req_data['content'];
-        // $data['time'] = time();
-
-        $data['name'] = $_POST['name'];
-  			$data['thumb_url_id'] = $_POST['thumb_url_id'];
-  			$data['description'] = $_POST['description'];
-  			$data['detail_url_id'] = $_POST['detail_url_id'];
+  			$req_data = json_decode($GLOBALS['HTTP_RAW_POST_DATA'],true);
+        $data['name'] = $req_data['name'];
+        $data['thumb_url_id'] = $req_data['thumb_url_id'];
+        $data['description'] = $req_data['description'];
+        $data['detail_url_id'] = $req_data['detail_url_id'];
         $data['time'] = time();
+
   			if($this->works_model->add($data) !== false){
   				echo json_encode(array('status'=>1,'msg'=>'添加成功'));
   			} else {
