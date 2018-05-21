@@ -114,16 +114,16 @@ class IndexController extends Controller
     // 提交保存留言
     public function addComment () {
       if (IS_POST) {
-  			// $req_data = json_decode($GLOBALS['HTTP_RAW_POST_DATA'],true);
-  			// $data['name'] = $req_data['name'];
-  			// $data['email'] = $req_data['email'];
-  			// $data['content'] = $req_data['content'];
-        // $data['time'] = time();
-
-        $data['name'] = $_POST['name'];
-  			$data['email'] = $_POST['email'];
-  			$data['content'] = $_POST['content'];
+  			$req_data = json_decode($GLOBALS['HTTP_RAW_POST_DATA'],true);
+  			$data['name'] = $req_data['name'];
+  			$data['email'] = $req_data['email'];
+  			$data['content'] = $req_data['content'];
         $data['time'] = time();
+
+        // $data['name'] = $_POST['name'];
+  			// $data['email'] = $_POST['email'];
+  			// $data['content'] = $_POST['content'];
+        // $data['time'] = time();
   			if($this->comments_model->add($data) !== false){
   				echo json_encode(array('status'=>1,'msg'=>'添加成功'));
   			} else {
