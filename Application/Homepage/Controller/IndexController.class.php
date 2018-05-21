@@ -28,6 +28,13 @@ class IndexController extends Controller
     // 作品列表
     public function work_list () {
       $data = $this->works_model->select();
+      foreach ($data as $key => $value) {
+        foreach ($value as $k => $v) {
+          if ($k == 'thumb_url_id' || $k == 'detail_url_id') {
+            $data[$key][$k] = 'http://api.jameschun.cc/Public/Uploads'.$this->images_model->where("id=$v")->getField('url');
+          }
+        }
+      }
   		$res = array(
   			'data' => $data
   		);
