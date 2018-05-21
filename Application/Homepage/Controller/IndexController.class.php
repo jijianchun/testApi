@@ -120,10 +120,6 @@ class IndexController extends Controller
   			$data['content'] = $req_data['content'];
         $data['time'] = time();
 
-        // $data['name'] = $_POST['name'];
-  			// $data['email'] = $_POST['email'];
-  			// $data['content'] = $_POST['content'];
-        // $data['time'] = time();
   			if($this->comments_model->add($data) !== false){
   				echo json_encode(array('status'=>1,'msg'=>'添加成功'));
   			} else {
