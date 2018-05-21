@@ -25,6 +25,15 @@ class IndexController extends Controller
         echo 'homepage';
     }
 
+    // 作品列表
+    public function work_list () {
+      $data = $this->works_model->select();
+  		$res = array(
+  			'data' => $data
+  		);
+  		echo json_encode($res);
+    }
+
     // 添加作品
     public function addWork () {
       if (IS_POST) {
