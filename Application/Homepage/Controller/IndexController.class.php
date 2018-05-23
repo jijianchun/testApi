@@ -14,15 +14,43 @@ class IndexController extends Controller
     protected $comments_model; // 评论表
     protected $works_model; // 作品表
     protected $images_model; // 图片表
+    protected $views_model; // 图片表
     public function _initialize() {
       $this->comments_model = M('comments');
       $this->works_model = M('works');
       $this->images_model = M('images');
+      $this->views_model = M('views');
     }
 
+    // 记录浏览信息
     public function index()
     {
-        echo 'homepage';
+      $ip = $_SERVER['REMOTE_ADDR'];
+      $data['ip'] = $ip;
+      $data['time'] = time();
+
+      // 根据ip获取城市信息，并返回浏览总数
+      $res = file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' . $ip);
+      $jsonMatches = array();
+      preg_match('#\{.+?\}#', $res, $jsonMatches);
+      if(isset($jsonMatches[0])){
+        $city_arr = json_decode($jsonMatches[0], true);
+        $data['country'] = $city_arr['country'];
+        $data['province'] = $city_arr['province'];
+        $data['city'] = $city_arr['city'];
+      }
+
+      if($this->views_model->add($data) !== false){
+        $count = $this->views_model->count();
+        $result = array(
+          'count' => $count,
+          'city' => $data['city']
+        );
+        // $this->ajaxReturn(array('status'=>1,'msg'=>'添加成功','result'=>$result));
+        echo json_encode(array('status'=>1,'msg'=>'添加成功','result'=>$result));
+      } else {
+        echo json_encode(array('status'=>0,'msg'=>'添加失败'));
+      }
     }
 
     // 作品列表
