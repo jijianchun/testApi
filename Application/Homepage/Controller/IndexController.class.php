@@ -87,6 +87,25 @@ class IndexController extends Controller
   		}
     }
 
+    //编辑作品
+    public function editWork () {
+      if(IS_POST){
+  			$req_data = json_decode($GLOBALS['HTTP_RAW_POST_DATA'],true);
+  			$data['id'] = $req_data['id'];
+        $data['name'] = $req_data['name'];
+        $data['thumb_url_id'] = $req_data['thumb_url_id'];
+        $data['description'] = $req_data['description'];
+        $data['detail_url_id'] = $req_data['detail_url_id'];
+
+  			$res = $this->works_model->save($data);
+  			if($res !== false){
+  				echo json_encode(array('status'=>1,'msg'=>'更新成功'));
+  			}else{
+  				echo json_encode(array('status'=>0,'msg'=>'更新失败'));
+  			}
+  		}
+    }
+
     // 作品封面图上传
     public function upload () {
       $upload = new \Think\Upload();// 实例化上传类
