@@ -58,7 +58,7 @@ class IndexController extends Controller
 	  		}
 	  	}
       }
-      
+
       echo json_encode($data);
     }
 
@@ -98,23 +98,32 @@ class IndexController extends Controller
 
     // 大鹏采集
     public function collect() {
-      $url = $_GET['urlName'];
+      $url = $_GET['urls'];
       if (!$url) {
         echo json_encode(array());
         exit;
       }
-      $meta_tags = get_meta_tags($url);
-      $str = $meta_tags['keywords'];
-      $rule = "/High Quality (.*)/";
-      preg_match($rule, $str, $results);
-      $arr = explode(',', $results[1]);
+
+      // 接收的可能1个，也可能多个url
+      $url_arr = explode(',', $url);
 
       $output_arr = array();
-      foreach($arr as $key => $value) {
-        $output_arr[] = array(
-          'index' => $key + 1,
-          'name' => $value
-        );
+      foreach($url_arr as $key=>$value) {
+        $meta_tags = get_meta_tags($value);
+        $str = $meta_tags['keywords'];
+        $rule = "/High Quality (.*)/";
+        preg_match($rule, $str, $results);
+        $arr = explode(',', $results[1]);
+
+        foreach($arr as $key =>$value) {
+          $output_arr[] = array(
+            'name' => $value
+          );
+        }
+      }
+
+      foreach($output_arr as $key=>$value) {
+        $output_arr[$key]['index'] = $key + 1;
       }
       echo json_encode($output_arr);
     }
