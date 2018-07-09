@@ -114,19 +114,25 @@ class IndexController extends Controller
         // $rule = "/High Quality (.*)/";
         // preg_match($rule, $str, $results);
         // $arr = explode(',', $results[1]);
-        $arr = explode(',', $str);
+        if($str != '') {
+          $arr = explode(',', $str);
 
-        foreach($arr as $key =>$value) {
-          $output_arr[] = array(
-            'name' => $value
-          );
+          foreach($arr as $key =>$value) {
+            $output_arr[] = array(
+              'name' => $value
+            );
+          }
         }
       }
 
-      foreach($output_arr as $key=>$value) {
-        $output_arr[$key]['index'] = $key + 1;
+      if (count($output_arr) > 0) {
+        foreach($output_arr as $key=>$value) {
+          $output_arr[$key]['index'] = $key + 1;
+        }
+        echo json_encode($output_arr);
+      } else {
+        echo json_encode(array());
       }
-      echo json_encode($output_arr);
     }
 
 }
