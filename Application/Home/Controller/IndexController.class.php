@@ -111,9 +111,10 @@ class IndexController extends Controller
       foreach($url_arr as $key=>$value) {
         $meta_tags = get_meta_tags($value);
         $str = $meta_tags['keywords'];
-        $rule = "/High Quality (.*)/";
-        preg_match($rule, $str, $results);
-        $arr = explode(',', $results[1]);
+        // $rule = "/High Quality (.*)/";
+        // preg_match($rule, $str, $results);
+        // $arr = explode(',', $results[1]);
+        $arr = explode(',', $str);
 
         foreach($arr as $key =>$value) {
           $output_arr[] = array(
